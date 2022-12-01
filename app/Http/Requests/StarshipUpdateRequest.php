@@ -37,8 +37,8 @@ class StarshipUpdateRequest extends FormRequest
             'hyperdrive_rating' => ['required', 'string'],
             'MGLT' => ['required', 'string'],
             'starship_class' => ['required', 'string'],
-            'pilots' => ['nullable', 'array'],
-            'films' => ['nullable', 'array'],
+            'pilots' => ['nullable'],
+            'films' => ['nullable'],
             'url' => ['required', 'string', 'url'],
         ];
     }

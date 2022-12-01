@@ -35,8 +35,8 @@ class VehicleStoreRequest extends FormRequest
             'cargo_capacity' => ['required', 'string'],
             'consumables' => ['required', 'string'],
             'vehicle_class' => ['required', 'string'],
-            'pilots' => ['nullable', 'array'],
-            'films' => ['nullable', 'array'],
+            'pilots' => ['nullable'],
+            'films' => ['nullable'],
             'url' => ['required', 'string'],
         ];
     }

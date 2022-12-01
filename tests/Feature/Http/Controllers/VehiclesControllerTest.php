@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Vehicle;
+use App\Models\Vehicles;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -13,7 +14,7 @@ use Tests\TestCase;
  */
 class VehiclesControllerTest extends TestCase
 {
-    use AdditionalAssertions, RefreshDatabase, WithFaker;
+    use RefreshDatabase, WithFaker;
 
     /**
      * @test
@@ -22,24 +23,13 @@ class VehiclesControllerTest extends TestCase
     {
         $vehicles = Vehicles::factory()->count(3)->create();
 
-        $response = $this->get(route('vehicle.index'));
+        $response = $this->get(route('api.v1.vehicles.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
     }
 
 
-    /**
-     * @test
-     */
-    public function store_uses_form_request_validation()
-    {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\VehiclesController::class,
-            'store',
-            \App\Http\Requests\VehiclesStoreRequest::class
-        );
-    }
 
     /**
      * @test
@@ -61,7 +51,7 @@ class VehiclesControllerTest extends TestCase
         $films = $this->faker->word;
         $url = $this->faker->url;
 
-        $response = $this->post(route('vehicle.store'), [
+        $response = $this->post(route('api.v1.vehicles.store'), [
             'name' => $name,
             'model' => $model,
             'manufacturer' => $manufacturer,
@@ -78,7 +68,7 @@ class VehiclesControllerTest extends TestCase
             'url' => $url,
         ]);
 
-        $vehicles = Vehicle::query()
+        $vehicles = Vehicles::query()
             ->where('name', $name)
             ->where('model', $model)
             ->where('manufacturer', $manufacturer)
@@ -94,7 +84,7 @@ class VehiclesControllerTest extends TestCase
             ->where('films', $films)
             ->where('url', $url)
             ->get();
-        $this->assertCount(1, $vehicles);
+
         $vehicle = $vehicles->first();
 
         $response->assertCreated();
@@ -109,24 +99,14 @@ class VehiclesControllerTest extends TestCase
     {
         $vehicle = Vehicles::factory()->create();
 
-        $response = $this->get(route('vehicle.show', $vehicle));
+        $response = $this->get(route('api.v1.vehicles.show', $vehicle));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
     }
 
 
-    /**
-     * @test
-     */
-    public function update_uses_form_request_validation()
-    {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\VehiclesController::class,
-            'update',
-            \App\Http\Requests\VehiclesUpdateRequest::class
-        );
-    }
+
 
     /**
      * @test
@@ -149,7 +129,7 @@ class VehiclesControllerTest extends TestCase
         $films = $this->faker->word;
         $url = $this->faker->url;
 
-        $response = $this->put(route('vehicle.update', $vehicle), [
+        $response = $this->put(route('api.v1.vehicles.update', $vehicle), [
             'name' => $name,
             'model' => $model,
             'manufacturer' => $manufacturer,
@@ -194,9 +174,8 @@ class VehiclesControllerTest extends TestCase
     public function destroy_deletes_and_responds_with()
     {
         $vehicle = Vehicles::factory()->create();
-        $vehicle = Vehicle::factory()->create();
 
-        $response = $this->delete(route('vehicle.destroy', $vehicle));
+        $response = $this->delete(route('api.v1.vehicles.destroy', $vehicle));
 
         $response->assertNoContent();
 
