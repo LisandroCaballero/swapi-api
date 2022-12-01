@@ -1,0 +1,40 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API SWAPI API",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost"
+        }
+    ],
+    "paths": {
+        "/api/v1/starships": {
+            "get": {
+                "summary": "Mostrar starships",
+                "operationId": "061de62afcdf0b06111cc6b8520b551c",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar todos los recursos."
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crear starships",
+                "operationId": "21f7832ef09a9486735cf2fcb974929c",
+                "responses": {
+                    "201": {
+                        "description": "Crear starships"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        }
+    }
+}
