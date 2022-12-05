@@ -28,6 +28,9 @@ Install composer
 Migrations
 >docker exec -it [name container] php artisan migrate
 
+>docker exec -it [name container] chmod -R 777 storage
+>docker exec -it [name container] chmod -R 777 bootstrap/cache
+
 Obtain Starship/Vehicles resources.
 > In postman make a get a starship request
 http://localhost/api/v1/starship/fetch_api
