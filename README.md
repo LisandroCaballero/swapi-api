@@ -23,10 +23,10 @@ Finally, start the app
 > docker-compose up -d
 
 Install composer
->  docker exec -it swapi-laravel.test-1 composer install
+>  docker exec -it [name container] composer install
 
 Migrations
->docker exec -it swapi-laravel.test-1 php artisan migrate
+>docker exec -it [name container] php artisan migrate
 
 Obtain Starship/Vehicles resources.
 > In postman make a get a starship request
